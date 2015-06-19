@@ -1,0 +1,39 @@
+1.	Build wsdl files using wsdl.exe; target vboxweb.wsdl, vboxwebservice.wsdl  
+2. 	Add generated source file to project as file or library.
+3. 	Add required ref assemblies to (2).
+4.	Add/reference Virtualbox COM API (VboxC.dll)
+5.	add/reference system.web.services
+
+Notes:
+	IVRDEServerInfo only tracks last logged in user.
+	[Session is busy] means webservice is stuck with a pending session. Reststart WebService.
+
+vrdeserver property: TCP/Ports
+vrdeserver property: TCP/Address
+vrdeserver property: VideoChannel/Enabled
+vrdeserver property: VideoChannel/Quality
+vrdeserver property: VideoChannel/DownscaleProtection
+vrdeserver property: Client/DisableDisplay
+vrdeserver property: Client/DisableInput
+vrdeserver property: Client/DisableAudio
+vrdeserver property: Client/DisableUSB
+vrdeserver property: Client/DisableClipboard
+vrdeserver property: Client/DisableUpstreamAudio
+vrdeserver property: Client/DisableRDPDR
+vrdeserver property: H3DRedirect/Enabled
+vrdeserver property: Security/Method
+vrdeserver property: Security/ServerCertificate
+vrdeserver property: Security/ServerPrivateKey
+vrdeserver property: Security/CACertificate
+vrdeserver property: Audio/RateCorrectionMode
+
+
+					Debug.WriteLine("active:         " +ivrdeServerInfo.active);
+					Debug.WriteLine("clientIP:       " +ivrdeServerInfo.clientIP);
+					Debug.WriteLine("clientPort:     " +ivrdeServerInfo.port);
+					Debug.WriteLine("clientName:     " +ivrdeServerInfo.clientName);
+					Debug.WriteLine("clientVersion:  " + ivrdeServerInfo.clientVersion);
+					Debug.WriteLine("clientDomain:   " +ivrdeServerInfo.domain);
+					Debug.WriteLine("clientUsername: " +  ivrdeServerInfo.user);
+					Debug.WriteLine("no. of clients: " +ivrdeServerInfo.numberOfClients);
+					Debug.WriteLine("end time:       " + TimeSpan.FromTicks(ivrdeServerInfo.endTime));

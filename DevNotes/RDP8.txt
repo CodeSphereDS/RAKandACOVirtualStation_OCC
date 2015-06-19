@@ -1,0 +1,90 @@
+**
+1.	set hosts file to mask ip
+2.	Set Credentials (i.e. "TERMSRV/IP:PORT")
+3.	Check Authentication libraries used.
+
+	VBoxManage setproperty vrdeauthlibrary default
+
+	VBoxManage setproperty websrvauthlibrary default
+
+
+
+1. Install kb2592687
+2. http://support.microsoft.com/kb/2592687
+
+3. Enable the Remote Desktop Protocol policy. The setting for this policy is under the following node:
+Computer Configuration\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Remote Session Environment
+4. If the UDP functionality is necessary, enable the RDP Transport policy, and then set the value to Use both TCP and UDP. The setting for 
+the RDP Transport policy is under the following node:
+Computer Configuration\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Connections
+
+
+**
+
+method 1 :
+
+Try to configure it in Remote Desktop connetion\advanced\server authentication, set it to “connect and don’t warm me”.
+
+If the issue persists, try to this method:
+
+1. Open up the registry editor
+
+2. Navigate to: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Terminal Server Client
+
+3. Add a new “DWORD” entry named “AuthenticationLevelOverride” and assign it a value of “0? (zero).
+
+4. You should now no longer get that annoying warning message.
+
+____________________________________________________________________________________________________________
+
+method 2 :
+
+Thank you very much for your interest. But, said method windows 8 's remote desktop software disables the place you call.
+
+Formed part of my problem is one of their own "remote connection on my program," I wanted to establish a connection to the computer and to give this warning. This warning windows 8 's "Remote Desktop Connection" program does.
+
+"Allow access to the following resources on a remote computer on my computer."
+
+"Clipboard"
+
+Own a remote desktop connection to connect to another computer on my program,I wanted to give the above warning. As shown in the figure above.
+
+also tried typing the following saying.all of them separately,but the results did not change.warning comes in the picture again.
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Terminal Server Client]
+"AuthenticationLevelOverride"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client]
+"AuthenticationLevelOverride"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server]
+"AuthenticationLevelOverride"=dword:00000000
+
+To disable this warning, I'd appreciate it if you help me.
+Thanks again for your interest.
+
+_________________________________________________________________________________________________________
+
+method 3:
+
+Try to Create a GPO with RDP signing settings, more detail you can refer:
+
+http://blogs.msdn.com/b/rds/archive/2011/04/05/how-to-resolve-the-issue-a-website-wants-to-start-a-remote-connection-the-publisher-of-this-remote-connection-cannot-be-identified.aspx
+
+__________________________________________________________________________________________________________
+
+method 4:
+
+From the screenshot it seems this is a normal behavior, the warning appear because the Windows 8 client doesn't trust the remote computer. By default, in Windows Server 2008 or later OS, the remote computers will need be configured a certificate for the authentication(should be Server Authentication certificate). Generally, we can use Self-assigned certificate, CA assigned certificate, and third party certificate.
+
+Lucky, we can manually configure that not allow to use a certificate on the remote computer server/computer, to do that, please enable the Require use of specific security layer for remote(RDP group policy which is under Computer Configuration\Administrative Templates\Windows Components\Remote Desktop Services \Remote Desktop Session Host\Security. Then set the security Layter to RDP.
+
+Regards,
+
+Please remember to click “Mark as Answer” on the post that helps you, and to click “Unmark as Answer” if a marked post does not actually answer your question. This can be beneficial to other community members reading the thread.
+
+________________________________________________________________________________________________________________________________________________________________________________
+
+method 5:
+
+where none of the methods I use their remote desktop schedule does not prevent me to take this warning. The same warning comes repeatedly. Do you have another idea?

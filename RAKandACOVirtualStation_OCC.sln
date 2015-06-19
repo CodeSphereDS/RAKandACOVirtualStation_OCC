@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAKandACOVirtualStation_OCC", "RAKandACOVirtualStation_OCC\RAKandACOVirtualStation_OCC.csproj", "{205B50A4-BF81-4425-9AB6-15D0B0E14C88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOAPService", "SOAPServices\SOAPService.csproj", "{4544488E-541B-45BC-BE4C-7CCF1D7A5BBC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{205B50A4-BF81-4425-9AB6-15D0B0E14C88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{205B50A4-BF81-4425-9AB6-15D0B0E14C88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{205B50A4-BF81-4425-9AB6-15D0B0E14C88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{205B50A4-BF81-4425-9AB6-15D0B0E14C88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4544488E-541B-45BC-BE4C-7CCF1D7A5BBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4544488E-541B-45BC-BE4C-7CCF1D7A5BBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4544488E-541B-45BC-BE4C-7CCF1D7A5BBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4544488E-541B-45BC-BE4C-7CCF1D7A5BBC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

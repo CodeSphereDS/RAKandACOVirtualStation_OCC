@@ -1,0 +1,24 @@
+AxMSTSCLib.dll
+
+%<SDK bin directory>%\aximp.exe %windir%\system32\mstscax.dll 
+
+copy to obj folders
+
+Declare: private AxMSTSCLib.AxMsTscAx axMsTscAx1; 
+In InitializeComponent: 
+this.axMsTscAx1 = new AxMSTSCLib.AxMsTscAx(); 
+((System.ComponentModel.ISupportInitialize)(this.axMsTscAx1)).BeginInit(); 
+// 
+// axMsTscAx1 
+// 
+this.axMsTscAx1.Enabled = true; 
+this.axMsTscAx1.Location = new System.Drawing.Point(58, 17); 
+this.axMsTscAx1.Name = "axMsTscAx1" 
+this.axMsTscAx1.OcxState = 
+((System.Windows.Forms.AxHost.State)(resources.GetObject("axMsTscAx1.OcxStat 
+e"))); 
+this.axMsTscAx1.Size = new System.Drawing.Size(192, 192); 
+this.axMsTscAx1.TabIndex = 1; 
+.... 
+this.Controls.Add(this.axMsTscAx1); 
+((System.ComponentModel.ISupportInitialize)(this.axMsTscAx1)).EndInit();

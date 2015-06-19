@@ -1,0 +1,105 @@
+
+				Debug.WriteLine("session state: " + session.sessionState());
+				Debug.WriteLine("machinestate: " + VirtualStation.getState());
+
+				if (ModernDialog.ShowMessage("Shutdown VirtualStation?", "Confirm",
+		  System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+				{
+					//check if multipleusers are connected?
+
+					if (!ivrdeServerInfo.active)
+					{
+						pleasewaitservice.Show(() =>
+						{
+							Debug.WriteLine(session.sessionState().ToString());
+							if (VirtualStation.getState() == SOAPService.MachineState.Running)
+							{
+								if (iconsole.getGuestEnteredACPIMode())
+								{
+									iconsole.powerButton();
+								}
+								else iconsole.powerDown();
+
+								while (VirtualStation.getState() == SOAPService.MachineState.Running)
+								{
+									System.Threading.Thread.Sleep(1000);
+								}
+							}
+						}, "Shutting Down VirtualStation...");
+					}
+					else if (ivrdeServerInfo.active)
+					{
+						if (ModernDialog.ShowMessage("Another User is still using this VirtualStation. Force shutdown?", "Confirm",
+		  System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+						{
+							pleasewaitservice.Show(() =>
+							{
+								Debug.WriteLine(session.sessionState().ToString());
+								if (VirtualStation.getState() == SOAPService.MachineState.Running)
+								{
+									if (iconsole.getGuestEnteredACPIMode())
+									{
+										iconsole.powerButton();
+									}
+									else iconsole.powerDown();
+
+									while (VirtualStation.getState() == SOAPService.MachineState.Running)
+									{
+										System.Threading.Thread.Sleep(1000);
+									}
+								}
+							}, "Shutting Down VirtualStation...");
+						}
+					}
+				}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			//if (e.OldValue != null)
+			//{
+			//    Debug.WriteLine("OldValue!=null");
+			//    IMachine previousMachine = e.OldValue as IMachine;
+			//    bool success = false;
+			//    int retry = 0;
+			//    //while (!success)
+			//    //{
+			//    //    try
+			//    //    {
+			//    //        if (VirtualStation.getState() == SOAPService.MachineState.Running)
+			//    //        {
+			//    //            if (_VirtualStationViewModel != null)
+			//    //            {
+			//    //            }
+			//    //        }
+			//    //        success = true;
+			//    //    }
+
+			//    //    catch (Exception ex)
+			//    //    {
+			//    //        retry += 1;
+			//    //        Debug.WriteLine("Error on OnVirtualStationChanged");
+			//    //        Debug.WriteLine(string.Format("Retries {0}...",retry));
+			//    //    }				
+			//    //}
+
+			//}
+			//else if (e.OldValue == null)
+			//{
+			//    Debug.WriteLine("e.OldValue==null");
+			//    //Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
+			//    //    {
+			//    //        VirtualStation = VirtualStationCollection[0];
+			//    //    }), null);
+			//}

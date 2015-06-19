@@ -1,0 +1,118 @@
+﻿<catel:Page x:Class="RAKandACOVirtualStation_OCC.Views.Virtual"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			      xmlns:catel="http://catel.codeplex.com" 
+            mc:Ignorable="d"           
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+            d:DesignHeight="885" d:DesignWidth="493"
+            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+            xmlns:v="clr-namespace:RAKandACOVirtualStation_OCC.Views.VirtualViews"
+            xmlns:vm="clr-namespace:RAKandACOVirtualStation_OCC.ViewModels.VirtualViewModels">
+  <!-- Resources -->
+
+  <catel:Page.Resources>        
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+        <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />
+        <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+      <DataTemplate DataType="{x:Type vm:VirtualStationViewModel}">
+        <v:VirtualStationView />
+      </DataTemplate>
+    </ResourceDictionary>
+  </catel:Page.Resources>
+  
+  <!-- Content -->
+  <catel:StackGrid Style="{StaticResource ContentRoot}" Margin="0" 
+           VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <Border BorderBrush="LightSteelBlue" BorderThickness="1" CornerRadius="5">
+    <catel:StackGrid>                
+          <catel:StackGrid.Resources>       
+      </catel:StackGrid.Resources>
+        <catel:StackGrid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </catel:StackGrid.RowDefinitions>
+         <StackPanel Orientation="Vertical" VerticalAlignment="Center"
+                    HorizontalAlignment="Stretch" 
+                    Visibility="{Binding VirtualStationCollectionIsLoading,
+          Converter={catel:BooleanToCollapsingVisibilityConverter}}">         
+          <Controls:ProgressRing IsActive="true" Name="ProgressRingLoadVirtualStation" Margin="30,20" VerticalAlignment="Center"/>
+          <TextBlock Text="{Binding ProgressDetails}" Margin="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,50" 
+                    Visibility="{Binding VirtualErrorMessage,Converter={catel:EmptyStringToCollapsingVisibilityConverter}}">
+          
+          <Border BorderBrush="Crimson" BorderThickness="1" CornerRadius="5" Background="AntiqueWhite" 
+                VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,50"
+                 >
+          <StackPanel Orientation="Vertical" Margin="30" Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding VirtualErrorMessage}"  
+                       FontFamily="Segoe UI" FontSize="12" FontStretch="ExtraExpanded" FontWeight="SemiBold"
+                       TextWrapping="Wrap" 
+                       LineStackingStrategy="BlockLineHeight"
+                       LineHeight="18" />           
+          </StackPanel>
+        </Border>
+          <Button VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,15" Command="{Binding LoadVirtualStations}">
+            <TextBlock Text="Retry" />
+          </Button>
+        </StackPanel>
+        <Border BorderBrush="LightSeaGreen" BorderThickness="1" CornerRadius="5"  Margin="0"              
+              Visibility="{Binding VirtualStationCollection,Converter={catel:ReferenceToCollapsingVisibilityConverter}}">
+        <catel:StackGrid>
+          <catel:StackGrid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" MinWidth="5" />
+            <ColumnDefinition Width="*"/>
+          </catel:StackGrid.ColumnDefinitions>
+            <Border BorderBrush="CadetBlue" BorderThickness="1" Margin="5,5,0,5">
+              <ListBox Margin="5,10" Name="VMListBox" MinWidth="150" SelectionMode="Single"
+              ItemsSource="{Binding Path=VirtualStationCollection}" 
+                     SelectedItem="{Binding VirtualStation}">
+                <i:Interaction.Triggers>
+                  <i:EventTrigger EventName="Loaded">
+                    <catel:EventToCommand Command="{Binding LoadVirtualStations}"/>
+                  </i:EventTrigger>
+                  <!--<i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                    <catel:EventToCommand Command="{Binding VMListBoxPreviewMouseLeftButtonDown}" 
+                                        PassEventArgsToCommand="True"
+                                          />
+                  </i:EventTrigger>-->
+                  <i:EventTrigger EventName="SelectionChanged">
+                    <catel:EventToCommand Command="{Binding SelectVirtualStationChanged}" 
+                                          PassEventArgsToCommand="True"
+                                          DisableAssociatedObjectOnCannotExecute="False" />
+                  </i:EventTrigger>
+                  <i:EventTrigger EventName="PreviewKeyDown">
+                    <catel:EventToCommand Command="{Binding ListBoxKeyNav}" PassEventArgsToCommand="True"/>
+                  </i:EventTrigger>
+                  <i:EventTrigger EventName="PreviewKeyUp">
+                    <catel:EventToCommand Command="{Binding ListBoxKeyNav}" PassEventArgsToCommand="True"/>
+                  </i:EventTrigger>
+                </i:Interaction.Triggers>              
+                <ListBox.ItemTemplate>
+                  <DataTemplate>
+                    <StackPanel Margin="0,3" Name="VMStackPanel">
+                      <TextBlock Margin="0,5" FontFamily="Arial"  Text="{Binding Path=MachineName}" Name="VMName"/>
+                    </StackPanel>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+          </Border>
+          <Border BorderBrush="CadetBlue" BorderThickness="1"  Margin="0,5,5,5" Width="auto"
+                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <ContentControl Name="RDPDisplay" Background="Transparent" Content="{Binding CurrentRDesktopContent}"/>
+          </Border>
+        </catel:StackGrid>
+      </Border>
+    </catel:StackGrid>
+  </Border>
+  </catel:StackGrid>
+</catel:Page>

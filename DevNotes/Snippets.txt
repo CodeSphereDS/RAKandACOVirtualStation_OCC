@@ -1,0 +1,139 @@
+	//string logon = VBoxService.IWebsessionManager_logon("Mark", "asdfqwer");
+				
+					//Debug.WriteLine(vs.IMachine_getName(s));
+					//if(vs.IMachine_getName(s).Equals("rakvm",StringComparison.OrdinalIgnoreCase))
+					//{
+					//    vs.IMachine_launchVMProcess(s,session, "headless","");
+					//    vs.IMachine_launchVMProcessCompleted+=new IMachine_launchVMProcessCompletedEventHandler(vs_IMachine_launchVMProcessCompleted);
+
+					//}			
+			
+								
+					//Debug.WriteLine(ex.Message);
+					//throw new NotSupportedException("Error connecting to VirtualStation Server");
+
+
+
+//private IPAddress GetHostnameIP(string vsname)
+		//    {
+		//        try
+		//        {
+		//            System.Net.IPAddress[] IPs;
+		//            IPs = System.Net.Dns.GetHostAddresses(ServerHostName);
+
+		//            foreach (System.Net.IPAddress ip in IPs)
+		//            {
+		//                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+		//                {
+		//                    //Debug.WriteLine("IP FOUND!-->"+ip.ToString());
+		//                    System.Net.NetworkInformation.Ping p = new System.Net.NetworkInformation.Ping();
+		//                    System.Net.NetworkInformation.PingReply pr = p.Send(ip);
+		//                    if (pr.Status == System.Net.NetworkInformation.IPStatus.Success)
+		//                    {
+		//                        return ip;
+		//                    }
+		//                }
+		//            }
+
+		//        }
+		//        catch (Exception ex)
+		//        {
+		//            var vm = new InfoDialogViewModel();
+		//            vm.NewTitle = "Error";
+		//            vm.InfoDisplay = "An error occured while trying to resolve Server Hostname.\nPlease contact your System Administrator.\n\n";
+
+		//            var service = Catel.IoC.DependencyResolverExtensions.Resolve<IUIVisualizerService>(DependencyResolver);
+
+		//            service.ShowDialog(vm);
+
+		//            //InfoDialog d = new InfoDialog(vm);
+
+		//            //d.ShowDialog();		
+		//            //System.Diagnostics.Debug.WriteLine("error resolving ip address ");
+		//            return null;
+		//        }
+		//        return null;
+		//    }
+
+
+
+				//var logon = VBoxService.IWebsessionManager_logon(VirtualStationServerUsername, VirtualStationServerPassword);
+				//var session = VBoxService.IWebsessionManager_getSessionObject(logon);
+				//_virtualStationCollection = new ObservableCollection<VirtualStation>();
+				//foreach (string machine in VBoxService.IVirtualBox_getMachines(logon))
+				//{
+				//    //new VirtualStation(new IMachine(
+				//}
+
+
+void vs_IWebsessionManager_logonCompleted(object sender, IWebsessionManager_logonCompletedEventArgs e)
+		{
+			//throw new NotImplementedException();
+			//Debug.WriteLine("sender type: " + sender.GetType());
+			try
+			{
+				Debug.WriteLine("e.result: " + e.Result);
+			}
+			//Debug.WriteLine("e.UserState", e.UserState);
+			//Debug.WriteLine("e.Error: " + e.Error);
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.InnerException.Message);
+			}
+		}
+
+
+
+
+You can manage the processes via the IGuestSession interface, accessible via IMachine::getConsole()::getGuest()::createSession()
+So that would give something like this (untested code) :
+CODE: SELECT ALL   EXPAND VIEW
+IMachine vm = virtualbox.findMachine(uuid);
+IGuest guest = vm.getConsole().getGuest();
+IGuestSession guestSession = guest.createSession(user,pass);
+IGuestProcess process = guestSession.processCreate(.....);
+
+
+
+
+			if (rdpxview == null)
+			{
+				var viewservice = Catel.IoC.DependencyResolverExtensions.Resolve<IViewManager>(this.DependencyResolver);
+				var v = viewservice.GetViewsOfViewModel(this);
+
+				foreach (VirtualStationView view in v)
+				{
+					if (view.GetType().Equals(typeof(VirtualStationView)))
+					{
+						rdpxview = (VirtualStationView)view;
+						Debug.WriteLine("VirtualStationView found!");
+						break;
+					}
+				}
+				if (rdpxview.wfh == null)
+				{
+					rdpxview.wfh = new System.Windows.Forms.Integration.WindowsFormsHost();
+
+				}
+			}
+
+
+
+
+                string vboxPath = System.Environment.ExpandEnvironmentVariables(@"%ProgramFiles%\Oracle\VirtualBox\vboxmanage.exe");
+                Process p = new Process();
+                p.StartInfo.FileName = vboxPath;
+                p.StartInfo.CreateNoWindow = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.Arguments = string.Format(" guestcontrol \"{0}\" copyfrom \"{1}{2}\" \"{3}{4}\" --username {5} --password {6} --verbose",
+                   VMName, PayrollDir, PayrollExeFile, PayrollDBBackupDir, PayrollExeFile, VMUsername, VMPassword);
+                p.Start();
+                p.WaitForExit();
+                p.StartInfo.Arguments = string.Format(" guestcontrol \"{0}\" copyfrom \"{1}{2}\" \"{3}{4}\" --username {5} --password {6} --verbose",
+                  VMName, PayrollDir, PayrollDBFile, PayrollDBBackupDir, PayrollDBFile, VMUsername, VMPassword);
+                p.Start();
+                //string pf = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
+                VMBackupData.ReportProgress(() => VisibilityTest = false);

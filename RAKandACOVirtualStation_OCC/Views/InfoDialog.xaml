@@ -1,0 +1,10 @@
+﻿<mui:ModernDialog x:Class="RAKandACOVirtualStation_OCC.Views.InfoDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"           
+        Title="{Binding Title}"                
+        Height="300" Width="300">
+    <Grid Style="{StaticResource ContentRoot}">
+    <TextBlock Text="{Binding InfoDisplay}" />
+  </Grid>
+</mui:ModernDialog>

@@ -1,0 +1,44 @@
+	ModernDialog.ShowMessage(string.Format("Unable to create target directory.\nDescription:\n\t{0}", ex.ToString()), "Error", MessageBoxButton.OK);
+	ModernDialog.ShowMessage(string.Format("Unable to create target subdirectory.\nDescription:\n\t{0}", ex.ToString()), "Error", MessageBoxButton.OK);
+	
+	
+	CopyFileFlag[] copyFlags = { CopyFileFlag.Recursive, CopyFileFlag.Update, CopyFileFlag.FollowLinks };
+
+					foreach (string ff in fsObj)
+					{
+						Debug.WriteLine(ff);
+						DirectoryInfo d = new DirectoryInfo(ff);
+						//pleasewaitservice.UpdateStatus("Backing up file(s)... "+ d.Name);
+						pleasewaitservice.UpdateStatus(ff.IndexOf(ff) + 1, fsObj.Count, "{0} out of {1} items");
+						System.Threading.Thread.Sleep(1000);
+						//IProgress p = guestSession.copyFrom(sourceDirPath.FullName + "\\", backupDirPath.FullName, copyFlags);
+						//while (!p.completed())
+						//{
+						//    System.Threading.Thread.Sleep(500);
+						//}
+					}
+				
+				//IGuestFsObjInfo iGuestFsObjInfo = guestSession.directoryQueryInfo(sourceDirPath.FullName + "\\");
+				//Debug.WriteLine("iGuestFsObjInfo hardlinks : " + iGuestFsObjInfo.getHardLinks());
+				//Debug.WriteLine("iGuestFsObjInfo nodeID : " + iGuestFsObjInfo.getNodeID());
+
+				//while (true)
+				//{
+				//    int cnt = 0;
+				//    try
+				//    {
+				//        IFsObjInfo fsobjinfo = iGuestDir.read();
+				//        Debug.WriteLine("fsobjFullName: " + iGuestDir.getDirectoryName() + fsobjinfo.getName());
+				//        Debug.WriteLine("fsobjinfoNodeID: " + fsobjinfo.getNodeID());
+				//        Debug.WriteLine("fsobjGenerationID: " + fsobjinfo.getGenerationID());
+				//        Debug.WriteLine("fsobjGID: " + fsobjinfo.getGID());
+				//        Debug.WriteLine("fsobjtype: " + fsobjinfo.getObjType());
+				//        //Debug.WriteLine(string.Format("ifsobj{0} file/folder name: {1}",cnt, ifsobj[cnt].getName()));
+				//        //cnt += 1;
+				//    }
+				//    catch (Exception ex)
+				//    {
+				//        break;
+				//    }
+				//}
+				//test

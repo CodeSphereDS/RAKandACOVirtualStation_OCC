@@ -1,0 +1,23 @@
+Setup VBoxAuthSimple authentication
+First setup VBoxAuthSimple authentication for VirtualBox itself.
+
+> VBoxManage setproperty vrdeauthlibrary "VBoxAuthSimple"
+
+Setup user/pass for Virtual Machine
+Now you need to configure the authentication type to ‘external’ 
+for the Virtual Machine (shut it down first). You will create a 
+new password hash and use this when adding a user.
+
+> VBoxManage list vms
+
+"Linux Server" {62d2f35d-25b5-4c24-8d04-3b495d967382}
+
+> VBoxManage modifyvm "Linux Server" --vrdeauthtype external
+
+> VBoxManage internalcommands passwordhash "tiger"
+Password hash: f15c16b99f82d8201767d3a841ff...
+
+> VBoxManage setextradata "Linux Server" "VBoxAuthSimple/users/scott" f15c16b99f82d8201767d3a841ff...
+
+(The hashed password is appended to the command line!)
+You can add the VirtualBox install directory %VBOX_INSTALL_PATH% to your path.

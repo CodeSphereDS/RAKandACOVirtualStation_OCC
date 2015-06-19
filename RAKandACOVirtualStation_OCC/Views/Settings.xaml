@@ -1,0 +1,84 @@
+﻿<catel:Page x:Class="RAKandACOVirtualStation_OCC.Views.Settings"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			      xmlns:catel="http://catel.codeplex.com" mc:Ignorable="d" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"       
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            d:DesignHeight="395" d:DesignWidth="426"
+            FontFamily="Segoe UI"
+            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+
+  <!-- Resources -->
+  <catel:Page.Resources>
+  </catel:Page.Resources>
+
+  <!-- Content -->
+  <GroupBox Header="RAK &amp; ACO VirtualStation 2.0" Style="{StaticResource ContentRoot}" MinWidth="250" Margin="5,30" HorizontalAlignment="Left" VerticalAlignment="Top">
+    <catel:StackGrid Margin="20,50" VerticalAlignment="Top" HorizontalAlignment="Left">
+      <catel:StackGrid.Resources>
+        <Style TargetType="{x:Type Label}">
+          <Setter Property="HorizontalAlignment"  Value="Right"/>
+          <Setter Property="VerticalAlignment" Value="Center"/>
+          <Setter Property="Margin" Value="5,0"/>
+          <Setter Property="FontSize" Value="11"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+          <Setter Property="HorizontalAlignment" Value="Left"/>
+          <Setter Property="VerticalAlignment" Value="Center"/>
+          <Setter Property="Margin" Value="5"/>
+          <Setter Property="FontSize" Value="11"/>
+        </Style>
+      </catel:StackGrid.Resources>
+      <catel:StackGrid.RowDefinitions >
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </catel:StackGrid.RowDefinitions>
+      <catel:StackGrid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+      </catel:StackGrid.ColumnDefinitions>
+      <Label Content="Hostname"/>
+      <TextBox Text="{Binding VirtualStationServer}" Width="90"/>
+      <Label Content="Port"/>
+      <TextBox Width="40" 
+                 Text="{Binding VirtualStationServerPort,UpdateSourceTrigger=PropertyChanged}">
+        <i:Interaction.Behaviors>
+          <catel:NumericTextBox />
+        </i:Interaction.Behaviors>
+      </TextBox>
+      <Label Content="Username"/>
+      <TextBox Text="{Binding VirtualStationServerUsername}" Width="90"/>
+      <Label Content="Password"/>
+      <PasswordBox Width="90" VerticalContentAlignment="Center" FontSize="11" FontFamily="Segoe UI">
+        <i:Interaction.Behaviors>
+          <catel:UpdateBindingOnPasswordChanged Password="{Binding VirtualStationServerPassword,Mode=TwoWay}"/>
+        </i:Interaction.Behaviors>
+      </PasswordBox>
+      <Expander ExpandDirection="Down" TextBlock.FontSize="11.5" 
+                Header="Backup Settings" Grid.ColumnSpan="2" Margin="0,13,0,0" >
+        <WrapPanel TextBlock.FontFamily="Segoe UI" TextBlock.FontSize="11" Margin="0,7">  
+          <TextBlock Text="Path" VerticalAlignment="Center" TextBlock.TextAlignment="right" Padding="0,0,15,0" MinWidth="75"/>
+          <catel:WatermarkTextBox Text="{Binding BackupFolderpath}" HorizontalAlignment="Left" MaxWidth="80"
+                                  Watermark="Path" MinWidth="90" IsReadOnly="True" >
+           </catel:WatermarkTextBox>
+          <Button Content="..." Command="{Binding SelectBackupFolder}" Padding="5,0" Margin="0" BorderBrush="Transparent" BorderThickness="0"/>
+        </WrapPanel>
+      </Expander>
+      <catel:EmptyRow Height="50"/>
+      <WrapPanel HorizontalAlignment="Right" FlowDirection="LeftToRight" Margin="0" Grid.ColumnSpan="2">
+        <Button Margin="0" Command="{Binding SettingsOK}">
+          <TextBlock Text="OK"/>
+        </Button>
+
+        <Button   Margin="10,0,0,0" Command="{Binding SettingsCancel}">
+          <TextBlock Text="Cancel"/>
+        </Button>
+      </WrapPanel>
+    </catel:StackGrid>
+  </GroupBox>
+</catel:Page>

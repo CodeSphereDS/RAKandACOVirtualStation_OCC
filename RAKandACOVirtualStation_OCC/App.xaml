@@ -1,0 +1,20 @@
+﻿<Application x:Class="RAKandACOVirtualStation_OCC.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="/Views/MainWindow.xaml"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+       
+             >
+  <Application.Resources>
+    <ResourceDictionary>
+      <Style TargetType="{x:Type mui:ModernFrame}">
+        <Setter Property="KeepContentAlive" Value="False"/>
+      </Style>
+      <ResourceDictionary.MergedDictionaries>        
+        <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic.xaml" />
+        <ResourceDictionary x:Name="mui" Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />
+        <ResourceDictionary x:Name="muilight" Source="/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

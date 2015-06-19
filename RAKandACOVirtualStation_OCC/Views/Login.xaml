@@ -1,0 +1,47 @@
+﻿<catel:Page x:Class="RAKandACOVirtualStation_OCC.Views.Login"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			      xmlns:catel="http://catel.codeplex.com"
+            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+            xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontFamily="Segoe UI">
+ 
+    <!-- Content -->
+  <Border BorderBrush="LightSkyBlue"   BorderThickness="1" Style="{StaticResource ContentRoot}" CornerRadius="5"  Height="300">
+    <i:Interaction.Behaviors>
+      <catel:FocusFirstControl/>
+    </i:Interaction.Behaviors>
+    <catel:StackGrid  HorizontalAlignment="Left" Margin="15,25">
+    <catel:StackGrid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+       <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+      </catel:StackGrid.RowDefinitions>
+    <catel:StackGrid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition MaxWidth="150" Width="*"/>
+    </catel:StackGrid.ColumnDefinitions>
+     
+      <TextBlock Text="Username" VerticalAlignment="Center" Margin="10,0" HorizontalAlignment="Stretch" />
+      <TextBox Text="{Binding Username}" Width="130" VerticalContentAlignment="Center" Margin="0,5"/>
+      <TextBlock Text="Password" VerticalAlignment="Center" Margin="10,0" HorizontalAlignment="Stretch"/>
+      <PasswordBox Width="130" VerticalContentAlignment="Center" >
+        <i:Interaction.Behaviors>
+          <catel:UpdateBindingOnPasswordChanged Password="{Binding Password,Mode=TwoWay}"/>
+          <catel:KeyPressToCommand Key="Enter" Command="{Binding CommandSignIn}"/>
+          </i:Interaction.Behaviors>
+      </PasswordBox>
+      <catel:EmptyRow Height="30"/>
+    
+      <Button Content="Sign In" Command="{Binding CommandSignIn}" Background="WhiteSmoke" 
+              BorderThickness="1" 
+              Margin="0" Padding="0,3"/>
+      <catel:EmptyColumn/>
+    </catel:StackGrid>
+  </Border>
+</catel:Page>
